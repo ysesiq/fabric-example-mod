@@ -12,33 +12,30 @@ group = project.maven_group
 
 repositories {
 	maven {
-		name = "legacy-fabric"
-		url = "https://maven.legacyfabric.net"
+			name = 'Fabric'
+			url = 'https://maven.fabricmc.net/'
 	}
+	maven {
+        url "https://dl.cloudsmith.io/public/fabricistooeasy/mith/maven/"
+    }
 }
 
 loom {
-	setIntermediaryUrl('https://maven.legacyfabric.net/net/fabricmc/intermediary/%1$s/intermediary-%1$s-v2.jar');
-	customMinecraftManifest.set("https://meta.legacyfabric.net/v2/manifest/${minecraft_version}")
+	setIntermediaryUrl('https://dl.cloudsmith.io/public/fabricistooeasy/intermediary/maven/net/fabricmc/intermediary/%1$s/intermediary-%1$s-v2.jar');
+	customMinecraftManifest.set("https://github.com/FabricIsTooEasy/version-mainfest/raw/main/mainfest/${minecraft_version}.json")
 
 	// Required by 1.7.x
-	// runs {
-	// 	client {
-	// 		programArgs "--userProperties", "{}"
-	// 	}
-	// }
+	runs {
+		client {
+			programArgs "--userProperties", "{}"
+		}
+	}
 }
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	mappings "io.github.fabricistooeasy:mith:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	// Fabric API provides hooks for events, item registration, and more. As most mods will need this, it's included by default. 
-	// If you know for a fact you don't, it's not required and can be safely removed.
-	modImplementation ("net.legacyfabric.legacy-fabric-api:legacy-fabric-api:${fabric_version}") {
-		exclude module: "legacy-fabric-entity-events-v1"
-	}
 
 	if (System.getProperty("os.name").toLowerCase().contains("mac")) {
 		implementation 'org.lwjgl.lwjgl:lwjgl_util:2.9.4-nightly-20150209'
