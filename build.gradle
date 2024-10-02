@@ -16,12 +16,30 @@ repositories {
 		url = 'https://maven.fabricmc.net/'
 	}
 	maven {
+		name = 'legacy-fabric'
+		url = 'https://maven.legacyfabric.net'
+	}
+	maven {
 		url "https://dl.cloudsmith.io/public/fabricistooeasy/mith/maven/"
+	}
+	maven {
+		url "https://dl.cloudsmith.io/public/modded-mite/mith/maven/"
+	}
+	maven {
+		name = 'Babric'
+		url = 'https://maven.glass-launcher.net/babric'
+	}
+	maven {
+		name = 'Quilt'
+		url = 'https://maven.quiltmc.org/repository/release'
+	}
+	maven {
+		url file('mavenRepo')
 	}
 }
 
 loom {
-	setIntermediaryUrl('https://dl.cloudsmith.io/public/fabricistooeasy/intermediary/maven/net/fabricmc/intermediary/%1$s/intermediary-%1$s-v2.jar');
+	setIntermediaryUrl('https://dl.cloudsmith.io/public/modded-mite/intermediary/maven/net/fabricmc/intermediary/1.6.4-MITE/intermediary-1.6.4-MITE-v2.jar');
 	customMinecraftManifest.set("https://ghp.ci/https://raw.githubusercontent.com/FabricIsTooEasy/version-mainfest/refs/heads/main/mainfest/${minecraft_version}.json")
 
 	// Required by 1.7.x
@@ -34,7 +52,10 @@ loom {
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "io.github.fabricistooeasy:mith:${project.yarn_mappings}:v2"
+//	https://dl.cloudsmith.io/public/modded-mite/mith/maven/io/github/fabricistooeasy/mith/1.6.4-MITE+build.202410020447/mith-1.6.4-MITE+build.202410020447.jar
+//	https://dl.cloudsmith.io/public/fabricistooeasy/mith/maven/io/github/fabricistooeasy/mith/1.6.4-MITE+build.202410020447/mith-1.6.4-MITE+build.202410020447.pom
+//	mappings "io.github.modded-mite:mith:${project.yarn_mappings}:v2"
+	mappings "net.legacyfabric:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	if (System.getProperty("os.name").toLowerCase().contains("mac")) {
